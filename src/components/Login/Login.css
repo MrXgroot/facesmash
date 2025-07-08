@@ -1,0 +1,94 @@
+/* Overlay for the full-screen login */
+.login-page {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(249, 250, 251, 0.95); /* semi-transparent white */
+  display: flex;
+  align-items: flex-end; /* bottom sheet style */
+  justify-content: end;
+  z-index: 50;
+  backdrop-filter: blur(4px); /* smooth blur behind */
+  transition: all 0.4s ease-in-out;
+}
+
+/* Bottom sheet container */
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.1);
+  padding: 32px 24px;
+  text-align: center;
+  animation: slideUp 0.5s ease-out forwards;
+  }
+/* Slide-up animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Title */
+.login-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+/* Subtitle */
+.login-subtitle {
+  font-size: 15px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* Google login button */
+.google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.google-login-button:hover {
+  background-color: #f3f4f6;
+  transform: scale(1.02);
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;  /* <-- moved from left to right */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #111827;
+}
+
+
+/* Remove tap highlight on mobile */
+button, .google-login-button {
+  -webkit-tap-highlight-color: transparent;
+}
