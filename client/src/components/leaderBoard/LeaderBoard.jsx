@@ -1,4 +1,5 @@
 import React from "react";
+import { Award } from "lucide-react";
 
 const users = [
   {
@@ -47,62 +48,66 @@ const users = [
   { id: 9, name: "Ravi", points: 80, photo: "https://i.pravatar.cc/100?img=9" },
 ];
 
-const getMedalEmoji = (index) => {
-  if (index === 0) return "🥇";
-  if (index === 1) return "🥈";
-  if (index === 2) return "🥉";
-  return "";
+const getMedalIcon = (index) => {
+  const size = 20;
+  if (index === 0)
+    return (
+      <Award size={size} className="text-yellow-500 bg-white rounded-full" />
+    );
+  if (index === 1)
+    return (
+      <Award size={size} className="text-gray-400 bg-white rounded-full" />
+    );
+  if (index === 2)
+    return (
+      <Award size={size} className="text-amber-700 bg-white rounded-full" />
+    );
+  return null;
 };
 
 const LeaderBoard = () => {
-  const topThree = users.slice(0, 3);
-  const rest = users.slice(3);
-
   return (
-    <div className="px-4 pt-20 pb-8">
-      <h2 className="text-2xl font-bold text-center mb-8">
-        FaceSnack Leaderboard
+    <div className="pt-16 pb-24 px-4 min-h-screen bg-white dark:bg-zinc-900">
+      <h2 className="text-2xl font-bold text-center text-zinc-800 dark:text-white mb-6">
+        FaceSmash Leaderboard
       </h2>
 
-      {/* Top 3 Podium */}
-      <div className="flex justify-center gap-6 mb-10 flex-wrap">
-        {topThree.map((user, index) => (
-          <div
+      <ul className="flex flex-col gap-4">
+        {users.map((user, index) => (
+          <li
             key={user.id}
-            className="text-center bg-green-300 p-4 rounded-xl w-[100px] relative shadow-md"
+            className="flex items-center justify-between bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-xl shadow-sm"
           >
-            <div className="relative w-[70px] h-[70px] mx-auto mb-2">
-              <img
-                src={user.photo}
-                alt={user.name}
-                className="w-full h-full rounded-full object-cover border-2 border-white shadow"
-              />
-              <div className="absolute -bottom-2 -right-2 bg-white text-lg rounded-full px-2 py-0.5 shadow">
-                {getMedalEmoji(index)}
+            <div className="flex items-center gap-3">
+              <div className="relative w-12 h-12">
+                <div className="rounded-full overflow-visible">
+                  <img
+                    src={user.photo}
+                    alt={user.name}
+                    className="w-12 h-12 rounded-full object-cover border-2 border-white"
+                  />
+                </div>
+                {index < 3 && (
+                  <div className="absolute -bottom-1.5 -right-1.5 bg-white p-1 rounded-full shadow z-10">
+                    {getMedalIcon(index)}
+                  </div>
+                )}
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-sm text-zinc-900 dark:text-white">
+                  {user.name}
+                </p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-300">
+                  {user.points} pts
+                </p>
               </div>
             </div>
-            <div className="font-semibold text-sm">{user.name}</div>
-            <div className="text-xs text-gray-600">{user.points} pts</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Remaining Users 4–10 */}
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-6 justify-items-center">
-        {rest.map((user) => (
-          <div key={user.id} className="text-center">
-            <div className="w-[70px] h-[70px] mx-auto mb-2">
-              <img
-                src={user.photo}
-                alt={user.name}
-                className="w-full h-full rounded-full object-cover border-2 border-white shadow"
-              />
+            <div className="text-sm text-zinc-500 dark:text-zinc-300 font-medium">
+              #{index + 1}
             </div>
-            <div className="font-semibold text-sm">{user.name}</div>
-            <div className="text-xs text-gray-600">{user.points} pts</div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
