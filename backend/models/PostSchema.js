@@ -1,63 +1,21 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema(
-  {
-    imageUrl: {
-      type: String,
-      required: true,
-    },
-    caption: {
-      type: String,
-      default: "",
-    },
-    likeCount: {
-      type: Number,
-      default: 0,
-    },
-    likedBy: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    dislikedBy: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    avatar: {
-      type: String,
-      default: "", // You can set default profile pic URL if needed
-    },
-    comments: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        avatar: {
-          type: String,
-        },
-        text: {
-          type: String,
-          required: true,
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
-  },
-  {
-    timestamps: true, // adds createdAt and updatedAt
-  }
-);
+const imageSchema = new mongoose.Schema({
+  url: { type: String, required: true },
+  publicId: { type: String },
+  width: { type: Number, default: 0 },
+  height: { type: Number, default: 0 },
+  filePath: { type: String } // Store the local file path
+});
 
-module.exports = mongoose.model("Post", PostSchema);
+const postSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  caption: { type: String, default: '' },
+  images: [imageSchema],
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  category: { type: String, enum: ['fashion', 'travel', 'food', 'other'], default: 'other' },
+  createdAt: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('Post', postSchema);
