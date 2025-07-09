@@ -1,13 +1,16 @@
-import { StrictMode } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { UploadProvider } from "./context/UploadContext"; // ✅ Import the provider
 import "./index.css";
-import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <Router>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </Router>
+  <React.StrictMode>
+    <BrowserRouter>
+      <UploadProvider> {/* Wrap App */}
+        <App />
+      </UploadProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

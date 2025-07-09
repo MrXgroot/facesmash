@@ -1,29 +1,16 @@
 import React from "react";
-import Post from "./components/Post";
-import Modal from "./components/modals/modal";
-import FaceSmash from "./components/FaceSmash";
-import Navbar from "./components/Navbar/Navbar";
-import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import LeaderBoard from "./pages/LeaderBoardPage";
-import Header from "./components/header/Header";
-import Login from "./components/Login/Login";
-import { useState } from "react";
-const App = () => {
-  const [showLogin, setShowLogin] = useState(true);
-  return (
-    <div className=" min-h-screen bg-white dark:bg-gray-900">
-      {showLogin && <Login onClose={() => setShowLogin(false)} />}
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="leaderboard" element={<LeaderBoard />} />
-      </Routes>
-      <Navbar />
+import UploadPreview from "./pages/UploadPreview";
+import Profile from "./components/profile/Profile";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-      <div className="fixed w-full bottom-0  z-40 ">{/* <Modal /> */}</div>
-    </div>
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/profile" replace />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/upload" element={<UploadPreview />} />
+    </Routes>
   );
-};
+}
 
 export default App;
