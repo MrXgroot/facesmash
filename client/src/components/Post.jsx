@@ -5,7 +5,7 @@ import { HiOutlineChatBubbleLeft } from "react-icons/hi2";
 import { BiDislike, BiSolidDislike } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 import avatar from "../assets/logo.jpeg";
-const Post = () => {
+const Post = ({ imageUrl }) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [likeCount, setLikeCount] = useState(24); // default like count
@@ -33,19 +33,25 @@ const Post = () => {
 
   return (
     <div className="relative">
-      <div className="w-full overflow-hidden flex flex-col border-gray-300   rounded-lg">
+      <div className="w-full overflow-hidden flex flex-col dark:bg-zinc-900 border-gray-300 dark:text-gray-300">
         <div className="flex gap-3 px-4 py-2 items-center font-medium shadow-md">
           <div className="w-9 h-9 rounded-full overflow-hidden ">
-            <img src={avatar} alt="" className="w-full h-full object-cover" />
+            <img
+              src={imageUrl || avatar}
+              alt=""
+              className="w-full h-full object-cover"
+            />
           </div>
 
-          <p className="text-base text-gray-700 ">Lost gamer</p>
+          <p className="text-base text-gray-700 dark:text-gray-300 ">
+            Lost gamer
+          </p>
         </div>
 
         {/* Image */}
         <div onDoubleClick={handleLike} className="h-[300px] cursor-pointer">
           <img
-            src={photo}
+            src={imageUrl || avatar}
             alt="Post"
             className="object-contain w-full h-full"
           />
@@ -79,7 +85,7 @@ const ActionButtons = ({
   likeCount,
 }) => (
   <div className="">
-    <div className="flex items-center gap-4 text-gray-700">
+    <div className="flex items-center gap-4 text-gray-700 dark:text-gray-300">
       <AnimatePresence mode="wait" initial={false}>
         <motion.button
           key={liked ? "liked" : "unliked"}
@@ -120,7 +126,9 @@ const ActionButtons = ({
       </motion.button>
 
       {/* Like Count */}
-      <span className="ml-auto text-sm text-gray-600">{likeCount} likes</span>
+      <span className="ml-auto text-sm text-gray-600 dark:text-gray-300">
+        {likeCount} likes
+      </span>
     </div>
   </div>
 );
